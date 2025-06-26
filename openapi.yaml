@@ -7,33 +7,38 @@ info:
     description: The greeting service definition.
     version: 0.0.1
 paths:
-    /helloworld/{name}:
-        get:
+    /helloworld:
+        post:
             tags:
                 - Greeter
-                - subgroup
-            description: Sends a greeting
-            operationId: Greeter_SayHello
-            parameters:
-                - name: name
-                  in: path
-                  required: true
-                  schema:
-                    type: string
+            description: Create a greeter
+            operationId: Greeter_CreateGreeter
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/helloworld.HelloRequest'
+                required: true
             responses:
                 "200":
                     description: OK
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/helloworld.v1.HelloReply'
+                                $ref: '#/components/schemas/helloworld.HelloReply'
 components:
     schemas:
-        helloworld.v1.HelloReply:
+        helloworld.HelloReply:
             type: object
             properties:
                 message:
                     type: string
             description: The response message containing the greetings
+        helloworld.HelloRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+            description: The request message containing the user's name.
 tags:
     - name: Greeter
