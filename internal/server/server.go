@@ -1,8 +1,16 @@
 package server
 
 import (
-	"github.com/google/wire"
+	"github.com/go-kratos/kratos-layout/api/helloworld"
+	"github.com/go-kratos/kratos-layout/internal/service"
+	"go.uber.org/fx"
 )
 
-// ProviderSet is server providers.
-var ProviderSet = wire.NewSet(NewGRPCServer, NewHTTPServer)
+var FxGreeterModule = fx.Module("fx_greeter",
+	fx.Provide(
+		fx.Annotate(
+			service.NewGreeterService,
+			fx.As(new(helloworld.GreeterHTTPServer)),
+		),
+	),
+)
