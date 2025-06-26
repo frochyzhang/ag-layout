@@ -1,6 +1,8 @@
 package biz
 
-import "github.com/google/wire"
+import "go.uber.org/fx"
 
-// ProviderSet is biz providers.
-var ProviderSet = wire.NewSet(NewGreeterUsecase)
+var FxBizModule = fx.Module(
+	"fx_biz",
+	fx.Provide(NewGreeterUsecase),
+)

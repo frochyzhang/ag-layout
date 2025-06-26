@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package helloworld;
+
+import "google/api/annotations.proto";
+
+option go_package = "allinfinance.com/ag-layout/api/helloworld";
+option java_multiple_files = true;
+option java_package = "com.allinfinance.api.helloworld";
+option java_outer_classname = "HelloworldProto";
+
+// The greeting service definition.
+service Greeter {
+  // Create a greeter
+  rpc CreateGreeter (HelloRequest) returns (HelloReply) {
+    option (google.api.http) = {
+      post: "/helloworld"
+      body: "*"
+    };
+  }
+  // put a greeter
+  rpc PutGreeter (HelloRequest) returns (HelloReply) {
+    option (google.api.http) = {
+      put: "/helloworld"
+      body: "*"
+    };
+  }
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}

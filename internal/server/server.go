@@ -1,8 +1,11 @@
 package server
 
 import (
-	"github.com/google/wire"
+	"allinfinance.com/ag-layout/api/helloworld"
+	"go.uber.org/fx"
 )
 
-// ProviderSet is server providers.
-var ProviderSet = wire.NewSet(NewGRPCServer, NewHTTPServer)
+var FxServerModule = fx.Module("server",
+	helloworld.FxGreeterModule,
+	helloworld.FxHelloModule,
+)

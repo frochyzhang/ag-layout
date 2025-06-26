@@ -3,37 +3,111 @@
 
 openapi: 3.0.3
 info:
-    title: Greeter API
-    description: The greeting service definition.
+    title: ""
     version: 0.0.1
 paths:
-    /helloworld/{name}:
-        get:
+    /hello:
+        put:
             tags:
-                - Greeter
-                - subgroup
-            description: Sends a greeting
-            operationId: Greeter_SayHello
-            parameters:
-                - name: name
-                  in: path
-                  required: true
-                  schema:
-                    type: string
+                - Hello
+            description: put a Hello
+            operationId: Hello_PutHello
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/helloworld.Hello1Request'
+                required: true
             responses:
                 "200":
                     description: OK
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/helloworld.v1.HelloReply'
+                                $ref: '#/components/schemas/helloworld.Hello1Reply'
+        post:
+            tags:
+                - Hello
+            description: Create a Hello
+            operationId: Hello_CreateHello
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/helloworld.Hello1Request'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.Hello1Reply'
+    /helloworld:
+        put:
+            tags:
+                - Greeter
+            description: put a greeter
+            operationId: Greeter_PutGreeter
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/helloworld.HelloRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.HelloReply'
+        post:
+            tags:
+                - Greeter
+            description: Create a greeter
+            operationId: Greeter_CreateGreeter
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/helloworld.HelloRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.HelloReply'
 components:
     schemas:
-        helloworld.v1.HelloReply:
+        helloworld.Hello1Reply:
             type: object
             properties:
                 message:
                     type: string
             description: The response message containing the greetings
+        helloworld.Hello1Request:
+            type: object
+            properties:
+                name:
+                    type: string
+            description: The request message containing the user's name.
+        helloworld.HelloReply:
+            type: object
+            properties:
+                message:
+                    type: string
+            description: The response message containing the greetings
+        helloworld.HelloRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+            description: The request message containing the user's name.
 tags:
     - name: Greeter
+      description: The greeting service definition.
+    - name: Hello
+      description: The greeting service definition.

@@ -1,6 +1,19 @@
 package service
 
-import "github.com/google/wire"
+import (
+	"allinfinance.com/ag-layout/api/helloworld"
+	"go.uber.org/fx"
+)
 
-// ProviderSet is service providers.
-var ProviderSet = wire.NewSet(NewGreeterService)
+var FxServiceModule = fx.Module("fx_service",
+	fx.Provide(
+		fx.Annotate(
+			NewGreeterService,
+			fx.As(new(helloworld.GreeterHTTPServer)),
+		),
+		fx.Annotate(
+			NewHelloService,
+			fx.As(new(helloworld.HelloHTTPServer)),
+		),
+	),
+)
