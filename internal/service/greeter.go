@@ -1,12 +1,12 @@
 package service
 
 import (
+	"allinfinance.com/ag-layout/internal/biz"
 	"context"
-	"github.com/go-kratos/kratos-layout/api/helloworld"
-	"github.com/go-kratos/kratos-layout/internal/biz"
+
+	pb "allinfinance.com/ag-layout/api/helloworld"
 )
 
-// GreeterService is a greeter service.
 type GreeterService struct {
 	uc *biz.GreeterUsecase
 }
@@ -15,12 +15,13 @@ func NewGreeterService(uc *biz.GreeterUsecase) *GreeterService {
 	return &GreeterService{uc: uc}
 }
 
-// SayHello Sends a greeting
-func (s *GreeterService) CreateGreeter(ctx context.Context, in *helloworld.HelloRequest) (*helloworld.HelloReply, error) {
-	greeter, err := s.uc.CreateGreeter(ctx, &biz.Greeter{Hello: in.Name})
+func (s *GreeterService) CreateGreeter(ctx context.Context, req *pb.HelloRequest) (*pb.HelloReply, error) {
+	greeter, err := s.uc.CreateGreeter(ctx, &biz.Greeter{Hello: req.Name})
 	if err != nil {
 		return nil, err
 	}
-
-	return &helloworld.HelloReply{Message: greeter.Hello}, nil
+	return &pb.HelloReply{Message: greeter.Hello}, nil
+}
+func (s *GreeterService) PutGreeter(ctx context.Context, req *pb.HelloRequest) (*pb.HelloReply, error) {
+	return &pb.HelloReply{}, nil
 }

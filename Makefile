@@ -55,6 +55,11 @@ generate:
 	go generate ./...
 	go mod tidy
 
+.PHONY: service
+# service
+service:
+	kratos proto server $(API_PROTO_FILES)
+
 .PHONY: all
 # generate all
 all:

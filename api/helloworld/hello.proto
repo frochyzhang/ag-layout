@@ -10,29 +10,29 @@ option java_package = "com.allinfinance.api.helloworld";
 option java_outer_classname = "HelloworldProto";
 
 // The greeting service definition.
-service Greeter {
-  // Create a greeter
-  rpc CreateGreeter (HelloRequest) returns (HelloReply) {
+service Hello {
+  // Create a Hello
+  rpc CreateHello (Hello1Request) returns (Hello1Reply) {
     option (google.api.http) = {
-      post: "/helloworld"
+      post: "/hello"
       body: "*"
     };
   }
-  // put a greeter
-  rpc PutGreeter (HelloRequest) returns (HelloReply) {
+  // put a Hello
+  rpc PutHello (Hello1Request) returns (Hello1Reply) {
     option (google.api.http) = {
-      put: "/helloworld"
+      put: "/hello"
       body: "*"
     };
   }
 }
 
 // The request message containing the user's name.
-message HelloRequest {
+message Hello1Request {
   string name = 1;
 }
 
 // The response message containing the greetings
-message HelloReply {
+message Hello1Reply {
   string message = 1;
 }
