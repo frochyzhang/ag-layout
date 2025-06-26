@@ -58,6 +58,11 @@ generate:
 .PHONY: service
 # service
 service:
+	kratos proto service $(API_PROTO_FILES)
+
+.PHONY: server
+# server
+server:
 	kratos proto server $(API_PROTO_FILES)
 
 .PHONY: all

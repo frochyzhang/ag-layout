@@ -8,7 +8,7 @@ require (
 	github.com/cloudwego/hertz v0.10.0
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/fx v1.24.0
-	google.golang.org/genproto v0.0.0-20210513213006-bf773b8c8384
+	google.golang.org/genproto/googleapis/api v0.0.0-20240528184218-531527333157
 	google.golang.org/protobuf v1.34.1
 )
 
