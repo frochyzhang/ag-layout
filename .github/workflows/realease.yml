@@ -2,8 +2,7 @@ name: Build and Release aif-go
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [main]
 
 jobs:
   build:
