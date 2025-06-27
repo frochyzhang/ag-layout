@@ -2,7 +2,7 @@
 
 ## Install Kratos
 ```
-go install github.com/frochyzhang/ag-layout/generator/aif-go@latest
+go install github.com/frochyzhang/ag-layout/cmd/aif-go@latest
 ```
 ## Create a service
 ```

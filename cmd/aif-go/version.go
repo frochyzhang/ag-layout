@@ -1,4 +1,4 @@
 package main
 
 // release is the current kratos tool version.
-const release = "1.0.5"
+const release = "1.0.7"
