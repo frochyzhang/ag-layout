@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/emicklei/proto"
 	"github.com/spf13/cobra"
@@ -31,9 +32,73 @@ func run(_ *cobra.Command, args []string) {
 		fmt.Fprintln(os.Stderr, "Please specify the proto file. Example: kratos proto service api/xxx.proto")
 		return
 	}
-	for _, f := range args {
-		generateFile(f)
+	//for _, f := range args {
+	//	generateFile(f)
+	//}
+	generateService(args)
+}
+
+func generateService(f []string) {
+	pkgs := make([]string, 0)
+	annos := make([]Annotate, 0)
+	for _, f := range f {
+		reader, err := os.Open(f)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer reader.Close()
+
+		parser := proto.NewParser(reader)
+		definition, err := parser.Parse()
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		var (
+			pkg string
+		)
+
+		proto.Walk(definition,
+			proto.WithOption(func(o *proto.Option) {
+				if o.Name == "go_package" {
+					pkg = strings.Split(o.Constant.Source, ";")[0]
+					pkgs = append(pkgs, pkg)
+				}
+			}),
+			proto.WithService(func(s *proto.Service) {
+				n := strings.LastIndex(pkg, "/")
+				brief := pkg[n+1:]
+				annos = append(annos, Annotate{Brief: brief, Name: s.Name})
+			}),
+		)
 	}
+	uniqPkgs := uniq(pkgs)
+	m := &Module{
+		Packages: uniqPkgs,
+		Names:    annos,
+	}
+
+	if _, err := os.Stat(targetDir); os.IsNotExist(err) {
+		fmt.Printf("Target directory: %s does not exist\n", targetDir)
+		return
+	}
+	to := filepath.Join(targetDir, "service.go")
+	if _, err := os.Stat(to); !os.IsNotExist(err) {
+		backupPath := generateBackupName(to)
+		fmt.Fprintf(os.Stderr, "Already exists: %s,backup to: %s\n", to, backupPath)
+		if err := os.Rename(to, backupPath); err != nil {
+			fmt.Fprintf(os.Stderr, "Error backing up file: %v\n", err)
+			return
+		}
+	}
+	b, err := m.execute()
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := os.WriteFile(to, b, 0o644); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(to)
 }
 
 func generateFile(f string) {
@@ -123,4 +188,30 @@ func toUpperCamelCase(s string) string {
 	s = strings.ReplaceAll(s, "_", " ")
 	s = cases.Title(language.Und, cases.NoLower).String(s)
 	return strings.ReplaceAll(s, " ", "")
+}
+
+func uniq(input []string) []string {
+	unique := make(map[string]bool)
+	for _, v := range input {
+		unique[v] = true
+	}
+	// 将map中的键提取到切片中
+	result := make([]string, 0, len(unique))
+	for k := range unique {
+		result = append(result, k)
+	}
+	return result
+}
+
+func generateBackupName(originalPath string) string {
+	// 获取当前时间并格式化为 YYYY-MM-DD-HHMM
+	timestamp := time.Now().Format("2006-01-02-1504")
+
+	// 获取文件目录和基本文件名
+	dir, file := filepath.Split(originalPath)
+
+	// 组合新文件名：原文件名 + 时间戳 + 扩展名
+	backupFile := fmt.Sprintf("%s.%s", file, timestamp)
+
+	return filepath.Join(dir, backupFile)
 }

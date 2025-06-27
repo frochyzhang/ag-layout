@@ -41,7 +41,7 @@ import ({{ range .Packages }}
 	"go.uber.org/fx"
 )
 
-var FxServerModule = fx.Module("server",{{ range .Names }}
+var FxServerModule = fx.Module("fx-server",{{ range .Names }}
 	{{.}},
 	{{- end }}
 )

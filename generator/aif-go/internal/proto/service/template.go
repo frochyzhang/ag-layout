@@ -98,7 +98,12 @@ const (
 // Module is a fx server definition
 type Module struct {
 	Packages []string
-	Names    []string
+	Names    []Annotate
+}
+
+type Annotate struct {
+	Brief string
+	Name  string
 }
 
 // Service is a proto service.
@@ -156,7 +161,7 @@ func (m *Module) execute() ([]byte, error) {
 
 	prefix = fmt.Sprintln(prefix, "// Generate time: ", time.DateTime)
 
-	tmpl, err := template.New("server").Parse(prefix + serverTemplate)
+	tmpl, err := template.New("service-module").Parse(prefix + serviceModuleTemplate)
 	if err != nil {
 		return nil, err
 	}
@@ -167,8 +172,8 @@ func (m *Module) execute() ([]byte, error) {
 }
 
 //nolint:lll
-var serverTemplate = `
-package server
+var serviceModuleTemplate = `
+package service
 
 import ({{ range .Packages }}
 	"{{.}}"
@@ -176,8 +181,13 @@ import ({{ range .Packages }}
 	"go.uber.org/fx"
 )
 
-var FxServerModule = fx.Module("server",{{ range .Names }}
-	{{.}},
+var FxServiceModule = fx.Module("fx-service",{{ range .Names }}
+	fx.Provide(
+		fx.Annotate(
+			New{{ .Name }}Service,
+			fx.As(new({{ .Brief }}.{{ .Name }}HTTPServer)),
+		),
+	),
 	{{- end }}
 )
 `

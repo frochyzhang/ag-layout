@@ -1,12 +1,12 @@
 package proto
 
 import (
-	"github.com/go-kratos/kratos/cmd/kratos/v2/internal/proto/service"
+	"allinfinance.com/golang/cmd/aif-go/v2/internal/proto/service"
 	"github.com/spf13/cobra"
 
-	"github.com/go-kratos/kratos/cmd/kratos/v2/internal/proto/add"
-	"github.com/go-kratos/kratos/cmd/kratos/v2/internal/proto/client"
-	"github.com/go-kratos/kratos/cmd/kratos/v2/internal/proto/server"
+	"allinfinance.com/golang/cmd/aif-go/v2/internal/proto/add"
+	"allinfinance.com/golang/cmd/aif-go/v2/internal/proto/client"
+	"allinfinance.com/golang/cmd/aif-go/v2/internal/proto/server"
 )
 
 // CmdProto represents the proto command.

@@ -2,7 +2,7 @@
 
 ## Install Kratos
 ```
-go install github.com/go-kratos/kratos/cmd/kratos/v2@latest
+go install allinfinance.com/golang/cmd/aif-go/v1@latest
 ```
 ## Create a service
 ```
