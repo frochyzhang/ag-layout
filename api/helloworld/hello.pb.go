@@ -124,8 +124,8 @@ const file_helloworld_hello_proto_rawDesc = "" +
 	"\amessage\x18\x01 \x01(\tR\amessage2\xb0\x01\n" +
 	"\x05Hello\x12T\n" +
 	"\vCreateHello\x12\x19.helloworld.Hello1Request\x1a\x17.helloworld.Hello1Reply\"\x11\x82\xd3\xe4\x93\x02\v:\x01*\"\x06/hello\x12Q\n" +
-	"\bPutHello\x12\x19.helloworld.Hello1Request\x1a\x17.helloworld.Hello1Reply\"\x11\x82\xd3\xe4\x93\x02\v:\x01*\x1a\x06/helloB_\n" +
-	"\x1fcom.allinfinance.api.helloworldB\x0fHelloworldProtoP\x01Z)allinfinance.com/ag-layout/api/helloworldb\x06proto3"
+	"\bPutHello\x12\x19.helloworld.Hello1Request\x1a\x17.helloworld.Hello1Reply\"\x11\x82\xd3\xe4\x93\x02\v:\x01*\x1a\x06/helloBe\n" +
+	"\x1fcom.allinfinance.api.helloworldB\x0fHelloworldProtoP\x01Z/github.com/frochyzhang/ag-layout/api/helloworldb\x06proto3"
 
 var (
 	file_helloworld_hello_proto_rawDescOnce sync.Once

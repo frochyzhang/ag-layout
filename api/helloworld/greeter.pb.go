@@ -126,8 +126,8 @@ const file_helloworld_greeter_proto_rawDesc = "" +
 	"\aGreeter\x12Y\n" +
 	"\rCreateGreeter\x12\x18.helloworld.HelloRequest\x1a\x16.helloworld.HelloReply\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\"\v/helloworld\x12V\n" +
 	"\n" +
-	"PutGreeter\x12\x18.helloworld.HelloRequest\x1a\x16.helloworld.HelloReply\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\x1a\v/helloworldB_\n" +
-	"\x1fcom.allinfinance.api.helloworldB\x0fHelloworldProtoP\x01Z)allinfinance.com/ag-layout/api/helloworldb\x06proto3"
+	"PutGreeter\x12\x18.helloworld.HelloRequest\x1a\x16.helloworld.HelloReply\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\x1a\v/helloworldBe\n" +
+	"\x1fcom.allinfinance.api.helloworldB\x0fHelloworldProtoP\x01Z/github.com/frochyzhang/ag-layout/api/helloworldb\x06proto3"
 
 var (
 	file_helloworld_greeter_proto_rawDescOnce sync.Once

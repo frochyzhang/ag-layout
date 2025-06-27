@@ -1,10 +1,10 @@
 package service
 
 import (
-	"allinfinance.com/ag-layout/internal/biz"
 	"context"
+	"github.com/frochyzhang/ag-layout/internal/biz"
 
-	pb "allinfinance.com/ag-layout/api/helloworld"
+	pb "github.com/frochyzhang/ag-layout/api/helloworld"
 )
 
 type GreeterService struct {

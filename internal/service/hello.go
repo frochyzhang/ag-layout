@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	pb "allinfinance.com/ag-layout/api/helloworld"
+	pb "github.com/frochyzhang/ag-layout/api/helloworld"
 )
 
 type HelloService struct {

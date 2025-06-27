@@ -1,4 +1,4 @@
-module allinfinance.com/ag-layout
+module github.com/frochyzhang/ag-layout
 
 go 1.23.6
 
