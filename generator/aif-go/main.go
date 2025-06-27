@@ -5,18 +5,18 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"allinfinance.com/golang/cmd/aif-go/v2/internal/change"
-	"allinfinance.com/golang/cmd/aif-go/v2/internal/project"
-	"allinfinance.com/golang/cmd/aif-go/v2/internal/proto"
-	"allinfinance.com/golang/cmd/aif-go/v2/internal/run"
-	"allinfinance.com/golang/cmd/aif-go/v2/internal/upgrade"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/change"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/project"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/proto"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/run"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/upgrade"
 )
 
 var rootCmd = &cobra.Command{
 	Use:     "aif-go",
 	Short:   "aif-go: An elegant toolkit for Go microservices.",
 	Long:    `aif-go: An elegant toolkit for Go microservices.`,
-	Version: "1.0.0",
+	Version: release,
 }
 
 func init() {

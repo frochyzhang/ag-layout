@@ -10,7 +10,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"allinfinance.com/golang/cmd/aif-go/v2/internal/base"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/base"
 )
 
 // CmdClient represents the source command.

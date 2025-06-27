@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"allinfinance.com/golang/cmd/aif-go/v2/internal/base"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/base"
 )
 
 // TestCmdNew tests the `kratos new` command.

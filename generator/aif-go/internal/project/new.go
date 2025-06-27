@@ -9,7 +9,7 @@ import (
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/fatih/color"
 
-	"allinfinance.com/golang/cmd/aif-go/v2/internal/base"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/base"
 )
 
 // Project is a project template.

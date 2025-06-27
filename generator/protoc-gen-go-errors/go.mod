@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2
+module github.com/frochyzhang/ag-layout/generator/protoc-gen-go-errors/v2
 
 go 1.21
 
