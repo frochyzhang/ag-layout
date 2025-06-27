@@ -2,8 +2,6 @@ module allinfinance.com/ag-layout
 
 go 1.23.6
 
-toolchain go1.24.2
-
 require (
 	github.com/cloudwego/hertz v0.10.0
 	go.uber.org/automaxprocs v1.5.1
