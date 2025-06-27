@@ -2,14 +2,11 @@ module github.com/frochyzhang/ag-layout/generator/aif-go
 
 go 1.23.0
 
-toolchain go1.24.4
-
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.7
 	github.com/emicklei/proto v1.10.0
 	github.com/fatih/color v1.13.0
 	github.com/spf13/cobra v1.4.0
-	go.uber.org/fx v1.24.0
 	golang.org/x/mod v0.17.0
 	golang.org/x/text v0.20.0
 )
@@ -23,9 +20,6 @@ require (
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/stretchr/testify v1.10.0 // indirect
-	go.uber.org/dig v1.19.0 // indirect
-	go.uber.org/multierr v1.10.0 // indirect
-	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/term v0.20.0 // indirect
 )

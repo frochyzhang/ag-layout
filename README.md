@@ -2,7 +2,7 @@
 
 ## Install Kratos
 ```
-go install allinfinance.com/golang/cmd/aif-go/v1@latest
+go install github.com/frochyzhang/ag-layout/generator/aif-go@latest
 ```
 ## Create a service
 ```
