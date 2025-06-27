@@ -20,7 +20,7 @@ endif
 init:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-	go install github.com/frochyzhang/ag-layout/generator/aif-go/v2@latest
+	go install github.com/frochyzhang/ag-layout/generator/aif-go@latest
 	go install github.com/frochyzhang/ag-layout/generator/protoc-gen-go-http/v2@latest
 	go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
 	go install github.com/google/wire/cmd/wire@latest
@@ -58,12 +58,12 @@ generate:
 .PHONY: service
 # service
 service:
-	kratos proto service $(API_PROTO_FILES)
+	aif-go proto service $(API_PROTO_FILES)
 
 .PHONY: server
 # server
 server:
-	kratos proto server $(API_PROTO_FILES)
+	aif-go proto server $(API_PROTO_FILES)
 
 .PHONY: all
 # generate all

@@ -5,11 +5,11 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/change"
-	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/project"
-	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/proto"
-	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/run"
-	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/upgrade"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/internal/change"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/internal/project"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/internal/proto"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/internal/run"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/internal/upgrade"
 )
 
 var rootCmd = &cobra.Command{

@@ -1,4 +1,4 @@
-module github.com/frochyzhang/ag-layout/generator/aif-go/v2
+module github.com/frochyzhang/ag-layout/generator/aif-go
 
 go 1.23.0
 

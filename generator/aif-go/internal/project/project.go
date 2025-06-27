@@ -12,7 +12,7 @@ import (
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/spf13/cobra"
 
-	"github.com/frochyzhang/ag-layout/generator/aif-go/v2/internal/base"
+	"github.com/frochyzhang/ag-layout/generator/aif-go/internal/base"
 )
 
 // CmdNew represents the new command.
