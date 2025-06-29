@@ -6,28 +6,28 @@ type {{call .ServiceTypeName}} interface {
 }
 {{- end}}
 
-var {{LowerFirst .ServiceName}}Methods = map[string]kitex.MethodInfo{
+var {{LowerFirst .ServiceName}}Methods = map[string]serviceinfo.MethodInfo{
 	{{- range .AllMethods}}
-		"{{.RawName}}": kitex.NewMethodInfo(
+		"{{.RawName}}": serviceinfo.NewMethodInfo(
 			{{LowerFirst .Name}}Handler,
 			new{{.ArgStructName}},
 			{{if .Oneway}}nil{{else}}new{{.ResStructName}}{{end}},
 			{{if .Oneway}}true{{else}}false{{end}},
-			kitex.WithStreamingMode(
-				{{- if and .ServerStreaming .ClientStreaming -}} kitex.StreamingBidirectional
-				{{- else if .ServerStreaming -}} kitex.StreamingServer
-				{{- else if .ClientStreaming -}} kitex.StreamingClient
+			serviceinfo.WithStreamingMode(
+				{{- if and .ServerStreaming .ClientStreaming -}} serviceinfo.StreamingBidirectional
+				{{- else if .ServerStreaming -}} serviceinfo.StreamingServer
+				{{- else if .ClientStreaming -}} serviceinfo.StreamingClient
 				{{- else -}}
-					 {{- if or (eq $.Codec "protobuf") (eq .StreamingMode "unary") -}} kitex.StreamingUnary
-					 {{- else -}} kitex.StreamingNone
+					 {{- if or (eq $.Codec "protobuf") (eq .StreamingMode "unary") -}} serviceinfo.StreamingUnary
+					 {{- else -}} serviceinfo.StreamingNone
 					 {{- end -}}
 				{{- end}}),
 		),
 	{{- end}}
 }
 
-func Register_{{.ServiceName}}_GRPCServer(srv {{.ServiceType}}GRPCServer) agks.Option {
-	return agks.WithServiceRegistrar(&agks.ServiceRegistrar{
+func Register_{{.ServiceName}}_GRPCServer(srv {{.ServiceType}}GRPCServer) server.Option {
+	return server.WithServiceRegistrar(&server.ServiceRegistrar{
 		ServiceInfo: New{{.ServiceName}}ServiceInfo(),
 		Handler: srv,
 	})
@@ -36,18 +36,18 @@ func Register_{{.ServiceName}}_GRPCServer(srv {{.ServiceType}}GRPCServer) agks.O
 
 // New{{.ServiceName}}ServiceInfo creates a new ServiceInfo containing all methods
 {{- /* It's for the Server (providing both streaming/non-streaming APIs), or for the grpc client */}}
-func New{{.ServiceName}}ServiceInfo() *kitex.ServiceInfo {
+func New{{.ServiceName}}ServiceInfo() *serviceinfo.ServiceInfo {
 	return new{{.ServiceName}}ServiceInfo({{- if .HasStreaming}}true{{else}}false{{end}}, true, true)
 }
 
 // New{{.ServiceName}}ServiceInfoForClient creates a new ServiceInfo containing non-streaming methods
 {{- /* It's for the KitexThrift Client with only non-streaming APIs */}}
-func New{{.ServiceName}}ServiceInfoForClient() *kitex.ServiceInfo {
+func New{{.ServiceName}}ServiceInfoForClient() *serviceinfo.ServiceInfo {
 	return new{{.ServiceName}}ServiceInfo(false, false, true)
 }
 
 {{- /* It's for the StreamClient with only streaming APIs */}}
-func New{{.ServiceName}}ServiceInfoForStreamClient() *kitex.ServiceInfo {
+func New{{.ServiceName}}ServiceInfoForStreamClient() *serviceinfo.ServiceInfo {
 	return new{{.ServiceName}}ServiceInfo(true, true, false)
 }
 
@@ -58,10 +58,10 @@ type {{.ServiceName}}GRPCServer interface {
 }
 
 
-func new{{.ServiceName}}ServiceInfo(hasStreaming bool, keepStreamingMethods bool, keepNonStreamingMethods bool) *kitex.ServiceInfo {
+func new{{.ServiceName}}ServiceInfo(hasStreaming bool, keepStreamingMethods bool, keepNonStreamingMethods bool) *serviceinfo.ServiceInfo {
 	serviceName := "{{.RawServiceName}}"
 	handlerType := (*{{call .ServiceTypeName}})(nil)
-	methods := map[string]kitex.MethodInfo{}
+	methods := map[string]serviceinfo.MethodInfo{}
 	for name, m := range {{LowerFirst .ServiceName}}Methods {
 		if m.IsStreaming() && !keepStreamingMethods {
 			continue
@@ -83,12 +83,12 @@ func new{{.ServiceName}}ServiceInfo(hasStreaming bool, keepStreamingMethods bool
 	if hasStreaming {
 		extra["streaming"] = hasStreaming
 	}
-	svcInfo := &kitex.ServiceInfo{
+	svcInfo := &serviceinfo.ServiceInfo{
 		ServiceName: 	 serviceName,
 		HandlerType: 	 handlerType,
 		Methods:     	 methods,
 	{{- if ne "Hessian2" .ServiceInfo.Protocol}}
-		PayloadCodec:  	 kitex.{{.Codec | UpperFirst}},
+		PayloadCodec:  	 serviceinfo.{{.Codec | UpperFirst}},
 	{{- end}}
 		KiteXGenVersion: "{{.Version}}",
 		Extra:           extra,

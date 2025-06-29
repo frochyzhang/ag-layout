@@ -1,11 +1,11 @@
 package main
 
 import (
-	"ag-core/ag/ag_app"
-	"ag-core/fxs"
 	"embed"
 	"flag"
 	"fmt"
+	"github.com/frochyzhang/ag-core/ag/ag_app"
+	"github.com/frochyzhang/ag-core/fxs"
 	"github.com/frochyzhang/ag-layout/internal/biz"
 	"github.com/frochyzhang/ag-layout/internal/server"
 	"github.com/frochyzhang/ag-layout/internal/service"

@@ -21,7 +21,7 @@ const (
 	serverPackage  = protogen.GoImportPath("github.com/cloudwego/hertz/pkg/app/server")
 	appPackage     = protogen.GoImportPath("github.com/cloudwego/hertz/pkg/app")
 	constsPackage  = protogen.GoImportPath("github.com/cloudwego/hertz/pkg/protocol/consts")
-	hertzPackage   = protogen.GoImportPath("ag-core/ag/ag_server/hertz")
+	hertzPackage   = protogen.GoImportPath("github.com/frochyzhang/ag-core/ag/ag_server/hertz")
 	fxPackage      = protogen.GoImportPath("go.uber.org/fx")
 )
 
