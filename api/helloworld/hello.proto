@@ -14,7 +14,7 @@ service Hello {
   // Create a Hello
   rpc CreateHello (Hello1Request) returns (Hello1Reply) {
     option (google.api.http) = {
-      post: "/hello"
+      post: "/hello/:Name"
       body: "*"
     };
   }

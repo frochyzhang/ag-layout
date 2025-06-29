@@ -79,7 +79,7 @@ var mainFx = fx.Module("main",
 	// Hello服务
 	//fxs.FxHelloServerMode,
 	// HttpServerBase
-	//fxs.FxHertzWithRegistryServerBaseModule,
+	fxs.FxHertzWithRegistryServerBaseModule,
 	// KitexServerBase
 	fxs.FxKitexServerBaseModule,
 	//fxs.FxNettyServerBaseModule,

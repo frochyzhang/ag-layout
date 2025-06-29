@@ -7,6 +7,7 @@ import (
 	"regexp"
 	"strings"
 	"time"
+	"unicode"
 
 	"google.golang.org/protobuf/reflect/protoreflect"
 
@@ -200,6 +201,7 @@ func buildMethodDesc(g *protogen.GeneratedFile, m *protogen.Method, method, path
 			if strings.Contains(field, ":") {
 				field = strings.Split(field, ":")[0]
 			}
+			field = lowerFirst(field)
 			fd := fields.ByName(protoreflect.Name(field))
 			if fd == nil {
 				fmt.Fprintf(os.Stderr, "\u001B[31mERROR\u001B[m: The corresponding field '%s' declaration in message could not be found in '%s'\n", v, path)
@@ -235,7 +237,7 @@ func buildPathVars(path string) (res map[string]*string) {
 	if strings.HasSuffix(path, "/") {
 		fmt.Fprintf(os.Stderr, "\u001B[31mWARN\u001B[m: Path %s should not end with \"/\" \n", path)
 	}
-	pattern := regexp.MustCompile(`(?i){([a-z.0-9_\s]*)=?([^{}]*)}`)
+	pattern := regexp.MustCompile(`(?i):([\w.-]+)(?:=([^/]+))?`)
 	matches := pattern.FindAllStringSubmatch(path, -1)
 	res = make(map[string]*string, len(matches))
 	for _, m := range matches {
@@ -250,7 +252,7 @@ func buildPathVars(path string) (res map[string]*string) {
 }
 
 func replacePath(name string, value string, path string) string {
-	pattern := regexp.MustCompile(fmt.Sprintf(`(?i){([\s]*%s\b[\s]*)=?([^{}]*)}`, name))
+	pattern := regexp.MustCompile(fmt.Sprintf(`(?i):%s\b(?:=([^/]*))?`, regexp.QuoteMeta(name)))
 	idx := pattern.FindStringIndex(path)
 	if len(idx) > 0 {
 		path = fmt.Sprintf("%s{%s:%s}%s",
@@ -261,6 +263,12 @@ func replacePath(name string, value string, path string) string {
 		)
 	}
 	return path
+}
+
+func lowerFirst(s string) string {
+	rs := []rune(s)
+	rs[0] = unicode.ToLower(rs[0])
+	return string(rs)
 }
 
 func camelCaseVars(s string) string {

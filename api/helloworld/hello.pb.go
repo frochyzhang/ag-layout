@@ -121,9 +121,9 @@ const file_helloworld_hello_proto_rawDesc = "" +
 	"\rHello1Request\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\"'\n" +
 	"\vHello1Reply\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2]\n" +
-	"\x05Hello\x12T\n" +
-	"\vCreateHello\x12\x19.helloworld.Hello1Request\x1a\x17.helloworld.Hello1Reply\"\x11\x82\xd3\xe4\x93\x02\v:\x01*\"\x06/helloBe\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage2c\n" +
+	"\x05Hello\x12Z\n" +
+	"\vCreateHello\x12\x19.helloworld.Hello1Request\x1a\x17.helloworld.Hello1Reply\"\x17\x82\xd3\xe4\x93\x02\x11:\x01*\"\f/hello/:NameBe\n" +
 	"\x1fcom.allinfinance.api.helloworldB\x0fHelloworldProtoP\x01Z/github.com/frochyzhang/ag-layout/api/helloworldb\x06proto3"
 
 var (

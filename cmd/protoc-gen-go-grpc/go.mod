@@ -3,7 +3,7 @@ module github.com/frochyzhang/ag-layout/cmd/protoc-gen-go-grpc
 go 1.22
 
 require (
-	google.golang.org/genproto/googleapis/api v0.0.0-20240528184218-531527333157
+	github.com/cloudwego/kitex v0.14.1
 	google.golang.org/protobuf v1.36.6
 )
 
