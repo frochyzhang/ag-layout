@@ -10,11 +10,11 @@
 package helloworld
 
 import (
+	hertz "ag-core/ag/ag_server/hertz"
 	context "context"
 	app "github.com/cloudwego/hertz/pkg/app"
 	server "github.com/cloudwego/hertz/pkg/app/server"
 	consts "github.com/cloudwego/hertz/pkg/protocol/consts"
-	hertz "github.com/frochyzhang/ag-core/ag/ag_server/hertz"
 	fx "go.uber.org/fx"
 )
 

@@ -1,3 +1,3 @@
 package ag_layout
 
-const release = "v1.0.0"
+const release = "v1.0.2"
