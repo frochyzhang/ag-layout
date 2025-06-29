@@ -20,9 +20,9 @@ endif
 init:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-	go install github.com/frochyzhang/ag-layout/cmd/aif-go@latest
-	go install github.com/frochyzhang/ag-layout/cmd/protoc-gen-go-http@latest
-	go install github.com/frochyzhang/ag-layout/cmd/protoc-gen-go-grpc@latest
+	go install github.com/frochyzhang/ag-core/cmd/aif-go@latest
+	go install github.com/frochyzhang/ag-core/cmd/protoc-gen-go-http@latest
+	go install github.com/frochyzhang/ag-core/cmd/protoc-gen-go-grpc@latest
 	go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
 	protoc-gen-go --version
 	protoc-gen-go-grpc -version
