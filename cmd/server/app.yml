@@ -5,14 +5,12 @@ http:
   # port: 3306
   port: 8000
 kitex:
-  # host: 127.0.0.1
-  port: 8001
-  endpoint: hzw
-  client:
-    pyyservice:
-      endpoint: pyy
-    songbservice:
-      endpoint: songb
+  server:
+    Host: 10.8.0.5
+    Port: 9888
+    ServiceName: "ag-demo.grpc"
+    Grpc:
+      Enable: true
 data:
   db:
     user:
@@ -67,13 +65,14 @@ nacos:
 #         log_level: "info"
 
 
-
+app:
+  profile: prod
 
 log:
   log_level: debug
-  encoding: console           # json or console
   log_file_name: "./storage/logs/server.log"
   max_backups: 30
   max_age: 7
   max_size: 1024
-  compress: true
+  compress: false
+  console: true

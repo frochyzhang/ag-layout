@@ -7,24 +7,6 @@ info:
     version: 0.0.1
 paths:
     /hello:
-        put:
-            tags:
-                - Hello
-            description: put a Hello
-            operationId: Hello_PutHello
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/helloworld.Hello1Request'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/helloworld.Hello1Reply'
         post:
             tags:
                 - Hello

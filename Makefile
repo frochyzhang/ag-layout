@@ -71,7 +71,12 @@ all:
 	make api;
 	make config;
 	make generate;
-
+.PHONY: demo
+# generate demo
+demo:
+	go install ./cmd/protoc-gen-go-grpc
+	go install ./cmd/protoc-gen-go-http
+	go install ./cmd/aif-go
 # show help
 help:
 	@echo ''

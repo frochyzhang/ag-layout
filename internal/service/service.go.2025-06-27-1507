@@ -14,14 +14,12 @@ var FxServiceModule = fx.Module("fx-service",
 		fx.Annotate(
 			NewGreeterService,
 			fx.As(new(helloworld.GreeterHTTPServer)),
-			fx.As(new(helloworld.GreeterGRPCServer)),
 		),
 	),
 	fx.Provide(
 		fx.Annotate(
 			NewHelloService,
 			fx.As(new(helloworld.HelloHTTPServer)),
-			fx.As(new(helloworld.HelloGRPCServer)),
 		),
 	),
 )

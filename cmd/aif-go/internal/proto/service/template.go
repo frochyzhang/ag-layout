@@ -34,7 +34,7 @@ func New{{ .Service }}Service() *{{ .Service }}Service {
 }
 
 {{- $s1 := "google.protobuf.Empty" }}
-{{ range .Methods }}
+{{ range .AllMethods }}
 {{- if eq .Type 1 }}
 func (s *{{ .Service }}Service) {{ .Name }}(ctx context.Context, in {{ if eq .Request $s1 }}*emptypb.Empty{{ else }}*pb.{{ .Request }}{{ end }}) ({{ if eq .Reply $s1 }}*emptypb.Empty{{ else }}*pb.{{ .Reply }}{{ end }}, error) {
 	return {{ if eq .Reply $s1 }}&emptypb.Empty{}{{ else }}&pb.{{ .Reply }}{}{{ end }}, nil
@@ -186,6 +186,7 @@ var FxServiceModule = fx.Module("fx-service",{{ range .Names }}
 		fx.Annotate(
 			New{{ .Name }}Service,
 			fx.As(new({{ .Brief }}.{{ .Name }}HTTPServer)),
+			fx.As(new({{ .Brief }}.{{ .Name }}GRPCServer)),
 		),
 	),
 	{{- end }}

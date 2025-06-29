@@ -53,7 +53,7 @@ func _{{$svrType}}_{{.Name}}{{.Num}}_HTTP_Handler(srv {{$svrType}}HTTPServer) fu
 }
 {{end}}
 
-var Fx{{.ServiceType}}Module = fx.Module("fx_{{.ServiceType}}",
+var Fx{{.ServiceType}}HTTPModule = fx.Module("fx_{{.ServiceType}}_HTTP",
     fx.Provide(
         {{range .Methods}}
         fx.Annotate(

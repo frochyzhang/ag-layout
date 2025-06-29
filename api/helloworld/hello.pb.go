@@ -121,10 +121,9 @@ const file_helloworld_hello_proto_rawDesc = "" +
 	"\rHello1Request\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\"'\n" +
 	"\vHello1Reply\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2\xb0\x01\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage2]\n" +
 	"\x05Hello\x12T\n" +
-	"\vCreateHello\x12\x19.helloworld.Hello1Request\x1a\x17.helloworld.Hello1Reply\"\x11\x82\xd3\xe4\x93\x02\v:\x01*\"\x06/hello\x12Q\n" +
-	"\bPutHello\x12\x19.helloworld.Hello1Request\x1a\x17.helloworld.Hello1Reply\"\x11\x82\xd3\xe4\x93\x02\v:\x01*\x1a\x06/helloBe\n" +
+	"\vCreateHello\x12\x19.helloworld.Hello1Request\x1a\x17.helloworld.Hello1Reply\"\x11\x82\xd3\xe4\x93\x02\v:\x01*\"\x06/helloBe\n" +
 	"\x1fcom.allinfinance.api.helloworldB\x0fHelloworldProtoP\x01Z/github.com/frochyzhang/ag-layout/api/helloworldb\x06proto3"
 
 var (
@@ -146,11 +145,9 @@ var file_helloworld_hello_proto_goTypes = []any{
 }
 var file_helloworld_hello_proto_depIdxs = []int32{
 	0, // 0: helloworld.Hello.CreateHello:input_type -> helloworld.Hello1Request
-	0, // 1: helloworld.Hello.PutHello:input_type -> helloworld.Hello1Request
-	1, // 2: helloworld.Hello.CreateHello:output_type -> helloworld.Hello1Reply
-	1, // 3: helloworld.Hello.PutHello:output_type -> helloworld.Hello1Reply
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	1, // 1: helloworld.Hello.CreateHello:output_type -> helloworld.Hello1Reply
+	1, // [1:2] is the sub-list for method output_type
+	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name

@@ -48,7 +48,5 @@ func (s *serviceDesc) execute() string {
 	if err := tmpl.Execute(buf, s); err != nil {
 		panic(err)
 	}
-	trim := strings.Trim(buf.String(), "\r\n")
-	println(trim)
-	return trim
+	return strings.Trim(buf.String(), "\r\n")
 }

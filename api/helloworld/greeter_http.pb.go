@@ -90,7 +90,7 @@ func _Greeter_PutGreeter0_HTTP_Handler(srv GreeterHTTPServer) func(ctx context.C
 	}
 }
 
-var FxGreeterModule = fx.Module("fx_Greeter",
+var FxGreeterHTTPModule = fx.Module("fx_Greeter_HTTP",
 	fx.Provide(
 
 		fx.Annotate(

@@ -65,7 +65,8 @@ func generateServer(f []string) {
 			proto.WithService(func(s *proto.Service) {
 				n := strings.LastIndex(pkg, "/")
 				brief := pkg[n+1:]
-				names = append(names, fmt.Sprintf("%s.Fx%sModule", brief, s.Name))
+				names = append(names, fmt.Sprintf("%s.Fx%sHTTPModule", brief, s.Name))
+				names = append(names, fmt.Sprintf("%s.Fx%sGRPCModule", brief, s.Name))
 			}),
 		)
 	}

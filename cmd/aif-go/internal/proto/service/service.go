@@ -32,9 +32,9 @@ func run(_ *cobra.Command, args []string) {
 		fmt.Fprintln(os.Stderr, "Please specify the proto file. Example: kratos proto service api/xxx.proto")
 		return
 	}
-	//for _, f := range args {
-	//	generateFile(f)
-	//}
+	for _, f := range args {
+		generateFile(f)
+	}
 	generateService(args)
 }
 

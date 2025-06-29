@@ -18,13 +18,6 @@ service Hello {
       body: "*"
     };
   }
-  // put a Hello
-  rpc PutHello (Hello1Request) returns (Hello1Reply) {
-    option (google.api.http) = {
-      put: "/hello"
-      body: "*"
-    };
-  }
 }
 
 // The request message containing the user's name.

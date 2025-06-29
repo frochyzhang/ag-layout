@@ -28,13 +28,10 @@ var _ = hertz.Server{}
 var _ = fx.Self()
 
 const OperationHelloCreateHello = "/helloworld.Hello/CreateHello"
-const OperationHelloPutHello = "/helloworld.Hello/PutHello"
 
 type HelloHTTPServer interface {
 	// CreateHello Create a Hello
 	CreateHello(context.Context, *Hello1Request) (*Hello1Reply, error)
-	// PutHello put a Hello
-	PutHello(context.Context, *Hello1Request) (*Hello1Reply, error)
 }
 
 func Register_Hello_CreateHello_HTTPServer(srv HelloHTTPServer) hertz.Option {
@@ -42,13 +39,6 @@ func Register_Hello_CreateHello_HTTPServer(srv HelloHTTPServer) hertz.Option {
 		HttpMethod:   "POST",
 		RelativePath: "/hello",
 		Handlers:     append(make([]app.HandlerFunc, 0), _Hello_CreateHello0_HTTP_Handler(srv)),
-	})
-}
-func Register_Hello_PutHello_HTTPServer(srv HelloHTTPServer) hertz.Option {
-	return hertz.WithRoute(&hertz.Route{
-		HttpMethod:   "PUT",
-		RelativePath: "/hello",
-		Handlers:     append(make([]app.HandlerFunc, 0), _Hello_PutHello0_HTTP_Handler(srv)),
 	})
 }
 
@@ -71,35 +61,11 @@ func _Hello_CreateHello0_HTTP_Handler(srv HelloHTTPServer) func(ctx context.Cont
 	}
 }
 
-func _Hello_PutHello0_HTTP_Handler(srv HelloHTTPServer) func(ctx context.Context, c *app.RequestContext) {
-	return func(ctx context.Context, c *app.RequestContext) {
-		var in = new(Hello1Request)
-		if err := c.BindByContentType(in); err != nil {
-			c.String(consts.StatusBadRequest, err.Error())
-			return
-		}
-		if err := c.BindQuery(in); err != nil {
-			c.String(consts.StatusBadRequest, err.Error())
-			return
-		}
-		reply, err := srv.PutHello(ctx, in)
-		if err != nil {
-			c.String(consts.StatusInternalServerError, err.Error())
-		}
-		c.JSON(consts.StatusOK, reply)
-	}
-}
-
-var FxHelloModule = fx.Module("fx_Hello",
+var FxHelloHTTPModule = fx.Module("fx_Hello_HTTP",
 	fx.Provide(
 
 		fx.Annotate(
 			Register_Hello_CreateHello_HTTPServer,
-			fx.ResultTags(`group:"hertz_router_options"`),
-		),
-
-		fx.Annotate(
-			Register_Hello_PutHello_HTTPServer,
 			fx.ResultTags(`group:"hertz_router_options"`),
 		),
 	),
