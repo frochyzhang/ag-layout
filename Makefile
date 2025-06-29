@@ -24,6 +24,10 @@ init:
 	go install github.com/frochyzhang/ag-layout/cmd/protoc-gen-go-http@latest
 	go install github.com/frochyzhang/ag-layout/cmd/protoc-gen-go-grpc@latest
 	go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
+	protoc-gen-go --version
+	protoc-gen-go-grpc -version
+	protoc-gen-go-http -version
+	aif-go --version
 
 .PHONY: config
 # generate internal proto
@@ -71,12 +75,6 @@ all:
 	make api;
 	make config;
 	make generate;
-.PHONY: demo
-# generate demo
-demo:
-	go install ./cmd/protoc-gen-go-grpc
-	go install ./cmd/protoc-gen-go-http
-	go install ./cmd/aif-go
 # show help
 help:
 	@echo ''
