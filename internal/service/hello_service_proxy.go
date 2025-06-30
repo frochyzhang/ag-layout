@@ -10,8 +10,8 @@ import (
 	"log"
 	"time"
 
+	mw "github.com/frochyzhang/ag-core/ag/ag_ext"
 	pb "github.com/frochyzhang/ag-layout/api/helloworld"
-	mw "github.com/frochyzhang/ag-layout/internal/service/middleware"
 )
 
 // ===================== 接口定义 =====================

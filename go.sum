@@ -64,8 +64,8 @@ github.com/fatih/structtag v1.2.0 h1:/OdNE99OxoI/PqaW/SuSK9uxxT3f/tcSZgon/ssNSx4
 github.com/fatih/structtag v1.2.0/go.mod h1:mBJUNpUnHmRKrKlQQlmCrh5PuhftFbNv8Ys4/aAZl94=
 github.com/frankban/quicktest v1.14.6 h1:7Xjx+VpznH+oBnejlPUj8oUpdxnVs4f8XU8WnHkI4W8=
 github.com/frankban/quicktest v1.14.6/go.mod h1:4ptaffx2x8+WTWXmUCuVU6aPUX1/Mz7zb5vbUoiM6w0=
-github.com/frochyzhang/ag-core v1.0.4 h1:N5DwM5uEF5FqIuBIam9sJ0DcJ7YEl5N2jeNaVL7LL1c=
-github.com/frochyzhang/ag-core v1.0.4/go.mod h1:OJsGoJIUkU8l0moaEE1bcnF8SV5T++h8515+lbJarkk=
+github.com/frochyzhang/ag-core v1.0.6 h1:yBcN1eUENqPMzB3A9cWSYPWQH7NHE2j7T+uZiaqsiUU=
+github.com/frochyzhang/ag-core v1.0.6/go.mod h1:OJsGoJIUkU8l0moaEE1bcnF8SV5T++h8515+lbJarkk=
 github.com/fsnotify/fsnotify v1.5.4/go.mod h1:OVB6XrOHzAwXMpEM7uPOzcehqUV2UqJxmVXmkdnm1bU=
 github.com/fsnotify/fsnotify v1.6.0 h1:n+5WquG0fcWoWp6xPWfHdbskMCQaFnG6PfBrh1Ky4HY=
 github.com/fsnotify/fsnotify v1.6.0/go.mod h1:sl3t1tCWJFWoRz9R8WJCbQihKKwmorjAbSClcnxKAGw=

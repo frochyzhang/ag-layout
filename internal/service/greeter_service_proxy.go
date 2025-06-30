@@ -10,8 +10,7 @@ import (
 	"log"
 	"time"
 
-	pb "github.com/frochyzhang/ag-layout/api/helloworld"
-	mw "github.com/frochyzhang/ag-layout/internal/service/middleware"
+	mw "github.com/frochyzhang/ag-core/ag/ag_ext"
 )
 
 // ===================== 接口定义 =====================
@@ -72,7 +71,6 @@ func (p *greeterProxyImpl) CreateGreeter(ctx context.Context, in *pb.HelloReques
 	log.Printf("[%s] success in %v", methodName, time.Since(start))
 	return res.(*pb.HelloReply), nil
 }
-
 func (p *greeterProxyImpl) PutGreeter(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
 	start := time.Now()
 	methodName := "PutGreeter"
