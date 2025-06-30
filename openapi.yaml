@@ -62,8 +62,117 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/helloworld.HelloReply'
+    /lm:
+        get:
+            tags:
+                - Lm
+            operationId: Lm_GetLm
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.helloworld.GetLmReply'
+        put:
+            tags:
+                - Lm
+            operationId: Lm_UpdateLm
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.helloworld.UpdateLmRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.helloworld.UpdateLmReply'
+        post:
+            tags:
+                - Lm
+            operationId: Lm_CreateLm
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.helloworld.CreateLmRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.helloworld.CreateLmReply'
+        delete:
+            tags:
+                - Lm
+            operationId: Lm_DeleteLm
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.helloworld.DeleteLmReply'
+    /lm/lms:
+        get:
+            tags:
+                - Lm
+            operationId: Lm_ListLm
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.helloworld.ListLmReply'
+    /zy/:Money:
+        post:
+            tags:
+                - Zy
+            description: Create a Zy
+            operationId: Zy_CreateZy
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/helloworld.ZyRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.ZyReply'
 components:
     schemas:
+        api.helloworld.CreateLmReply:
+            type: object
+            properties: {}
+        api.helloworld.CreateLmRequest:
+            type: object
+            properties: {}
+        api.helloworld.DeleteLmReply:
+            type: object
+            properties: {}
+        api.helloworld.GetLmReply:
+            type: object
+            properties: {}
+        api.helloworld.ListLmReply:
+            type: object
+            properties: {}
+        api.helloworld.UpdateLmReply:
+            type: object
+            properties: {}
+        api.helloworld.UpdateLmRequest:
+            type: object
+            properties: {}
         helloworld.Hello1Reply:
             type: object
             properties:
@@ -88,8 +197,23 @@ components:
                 name:
                     type: string
             description: The request message containing the user's name.
+        helloworld.ZyReply:
+            type: object
+            properties:
+                message:
+                    type: string
+            description: The response message containing the money
+        helloworld.ZyRequest:
+            type: object
+            properties:
+                money:
+                    type: string
+            description: The request message containing the Zy's money.
 tags:
     - name: Greeter
       description: The greeting service definition.
     - name: Hello
       description: The greeting service definition.
+    - name: Lm
+    - name: Zy
+      description: The Zy service definition.

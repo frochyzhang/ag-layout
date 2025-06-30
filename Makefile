@@ -28,6 +28,7 @@ init:
 	protoc-gen-go-grpc -version
 	protoc-gen-go-http -version
 	aif-go --version
+	go get -u all
 
 .PHONY: config
 # generate internal proto
