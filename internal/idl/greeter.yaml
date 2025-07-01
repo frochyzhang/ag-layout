@@ -1,0 +1,10 @@
+tablename: greeter
+modelname: Greeter
+columnlist:
+  - gotype: string
+    dbcolname: Hello
+    primaryKey: true
+    notnullflag: true
+    comment: 主键哦
+primarykeylist:
+  - Hello

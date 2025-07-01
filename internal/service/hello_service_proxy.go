@@ -7,9 +7,12 @@ package service
 
 import (
 	"context"
+	"github.com/spf13/cast"
 	"log"
 	"time"
 
+	"github.com/frochyzhang/ag-core/ag/ag_conf"
+	"github.com/frochyzhang/ag-core/ag/ag_db/gormdb"
 	mw "github.com/frochyzhang/ag-core/ag/ag_ext"
 	pb "github.com/frochyzhang/ag-layout/api/helloworld"
 )
@@ -29,10 +32,16 @@ type helloProxyImpl struct {
 	middlewares []mw.Middleware
 }
 
-func NewHelloProxy(service *HelloService) HelloProxy {
+func NewHelloProxy(env ag_conf.IConfigurableEnvironment, tmCtx *gormdb.TmMiddlewareContext, service *HelloService) HelloProxy {
+	mws := make([]mw.Middleware, 0)
+	useTx := cast.ToBool(env.GetProperty("data.db.user.use-tx"))
+	if useTx {
+		mws = append(mws, tmCtx.TransactionMiddleware)
+	}
+
 	return &helloProxyImpl{
 		service:     service,
-		middlewares: make([]mw.Middleware, 0),
+		middlewares: mws,
 	}
 }
 

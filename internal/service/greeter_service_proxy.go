@@ -7,31 +7,40 @@ package service
 
 import (
 	"context"
+	"github.com/spf13/cast"
 	"log"
 	"time"
 
-	mw "github.com/frochyzhang/ag-core/ag/ag_ext"
+	"github.com/frochyzhang/ag-core/ag/ag_conf"
+	"github.com/frochyzhang/ag-core/ag/ag_db/gormdb"
+	m
 )
 
 // ===================== 接口定义 =====================
 
 // 代理接口
 type GreeterProxy interface {
+    pb.GreeterServer
 	pb.GreeterServer
-	AddMiddleware(m mw.Middleware)
 }
 
 // ===================== 代理实现 =====================
 
 type greeterProxyImpl struct {
+	service      interface{} // 原始服务实例
 	service     interface{} // 原始服务实例
 	middlewares []mw.Middleware
-}
 
-func NewGreeterProxy(service *GreeterService) GreeterProxy {
+func NewGreeterProxy(env ag_conf.IConfigurableEnvironment, tmCtx *gormdb.TmMiddlewareContext, service *GreeterService) GreeterProxy {
+    mws := make([]mw.Middleware, 0)
+	mws := make([]mw.Middleware, 0)
+	if useTx {
+		mws = append(mws,tmCtx.TransactionMiddleware)
+		mws = append(mws, tmCtx.TransactionMiddleware)
+
 	return &greeterProxyImpl{
 		service:     service,
-		middlewares: make([]mw.Middleware, 0),
+		middlewares: mws,
 	}
 }
 
@@ -42,16 +51,17 @@ func (p *greeterProxyImpl) AddMiddleware(m mw.Middleware) {
 // ======== Greeter 代理方法 ========
 
 func (p *greeterProxyImpl) CreateGreeter(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+    start := time.Now()
 	start := time.Now()
 	methodName := "CreateGreeter"
-
+    // 创建处理链
 	// 创建处理链
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		// 最终调用原始服务方法
 		s := p.service.(pb.GreeterServer)
 		return s.CreateGreeter(ctx, req.(*pb.HelloRequest))
 	}
-
+    // 应用中间件
 	// 应用中间件
 	for i := len(p.middlewares) - 1; i >= 0; i-- {
 		mw := p.middlewares[i]
@@ -60,28 +70,28 @@ func (p *greeterProxyImpl) CreateGreeter(ctx context.Context, in *pb.HelloReques
 			return mw(methodName, ctx, req, next)
 		}
 	}
-
+    // 执行调用链
 	// 执行调用链
 	res, err := handler(ctx, in)
 	if err != nil {
 		log.Printf("[%s] failed in %v: %v", methodName, time.Since(start), err)
 		return nil, err
 	}
-
+    log.Printf("[%s] success in %v", methodName, time.Since(start))
 	log.Printf("[%s] success in %v", methodName, time.Since(start))
 	return res.(*pb.HelloReply), nil
-}
 func (p *greeterProxyImpl) PutGreeter(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+    start := time.Now()
 	start := time.Now()
 	methodName := "PutGreeter"
-
+    // 创建处理链
 	// 创建处理链
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		// 最终调用原始服务方法
 		s := p.service.(pb.GreeterServer)
 		return s.PutGreeter(ctx, req.(*pb.HelloRequest))
 	}
-
+    // 应用中间件
 	// 应用中间件
 	for i := len(p.middlewares) - 1; i >= 0; i-- {
 		mw := p.middlewares[i]
@@ -90,14 +100,13 @@ func (p *greeterProxyImpl) PutGreeter(ctx context.Context, in *pb.HelloRequest) 
 			return mw(methodName, ctx, req, next)
 		}
 	}
-
+    // 执行调用链
 	// 执行调用链
 	res, err := handler(ctx, in)
 	if err != nil {
 		log.Printf("[%s] failed in %v: %v", methodName, time.Since(start), err)
 		return nil, err
 	}
-
+    log.Printf("[%s] success in %v", methodName, time.Since(start))
 	log.Printf("[%s] success in %v", methodName, time.Since(start))
 	return res.(*pb.HelloReply), nil
-}

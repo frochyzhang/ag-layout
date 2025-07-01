@@ -14,12 +14,13 @@ kitex:
 data:
   db:
     user:
-     driver: ibmdb
-     dsn: HOSTNAME=192.168.105.63;DATABASE=testdb;PORT=50001;UID=db2inst1;PWD=db2inst1;AUTHENTICATION=SERVER;CurrentSchema=ENTTEST
+#     driver: ibmdb
+#     dsn: HOSTNAME=192.168.105.63;DATABASE=testdb;PORT=50001;UID=db2inst1;PWD=db2inst1;AUTHENTICATION=SERVER;CurrentSchema=ENTTEST
 #      driver: sqlite
 #      dsn: storage/nunu-test.db?_busy_timeout=5000
-      #  driver: mysql
-      #  dsn: root:root@tcp(127.0.0.1:3306)/mdms?charset=utf8mb4&parseTime=True&loc=Local
+        driver: mysql
+        dsn: root:root@tcp(10.25.30.105:31053)/greeter?charset=utf8mb4&parseTime=True&loc=Local
+        use-tx: true
   #    user:
   #      driver: postgres
   #      dsn: host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai

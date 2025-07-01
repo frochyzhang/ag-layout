@@ -7,6 +7,7 @@ import (
 	"github.com/frochyzhang/ag-core/ag/ag_app"
 	"github.com/frochyzhang/ag-core/fxs"
 	"github.com/frochyzhang/ag-layout/internal/biz"
+	"github.com/frochyzhang/ag-layout/internal/data"
 	"github.com/frochyzhang/ag-layout/internal/server"
 	"github.com/frochyzhang/ag-layout/internal/service"
 	"go.uber.org/fx"
@@ -69,7 +70,7 @@ var mainFx = fx.Module("main",
 	fxs.FxNettyClientBaseModule,
 
 	/** DB **/
-	// fxs.FxAicGromdbModule,
+	fxs.FxAicGromdbModule,
 
 	// 根APP
 	fxs.FxAppMode,
@@ -86,4 +87,5 @@ var mainFx = fx.Module("main",
 	server.FxServerModule,
 	service.FxServiceModule,
 	biz.FxBizModule,
+	data.FxDataModule,
 )
