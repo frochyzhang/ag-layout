@@ -8,3 +8,6 @@ columnlist:
     comment: 主键哦
 primarykeylist:
   - Hello
+#namingsqllist:
+#  - methodname: findByAAA
+#    namingsql: select * from greeter where id = @ID union all select * from greeter where id = @ID

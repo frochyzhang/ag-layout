@@ -4,34 +4,32 @@
 
 package model
 
-import 
 import (
 	"fmt"
 )
 
 // Greeter mapped from table greeter
+type Greeter struct {
 	Hello string `gorm:"column:Hello;not null" json:"Hello"`
-   Hello  string `gorm:"column:Hello;not null" json:"Hello"`
 }
 
 // TableName greeter table name
+func (*Greeter) TableName() string {
 	return "greeter"
-   return "greeter"
 }
 
+func (owner *Greeter) Clone() *Greeter {
 	if owner == nil {
 		return nil
 	}
 	return &Greeter{
 		Hello: owner.Hello,
 	}
-   }
 }
 
+func (owner *Greeter) ToString() string {
 	if owner == nil {
 		return "<nil>"
 	}
 	return fmt.Sprintf("Greeter:(%+v)", *owner)
-    return fmt.Sprintf("Greeter:(%+v)", *owner)
-}
 }
