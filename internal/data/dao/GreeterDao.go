@@ -14,7 +14,7 @@ type IGreeterDao interface {
 	InsertOne(ctx context.Context, arg *model.Greeter) (int64, error)
 	FindByPrimaryKey(ctx context.Context, Hello string) (*model.Greeter, error)
 	UpdateByPrimaryKey(ctx context.Context, arg *model.Greeter) (int64, error)
-	UpdateByPriIngoreNullCols(ctx context.Context, arg *model.Greeter) (int64, error)
+	UpdateByPriIgnoreNullCols(ctx context.Context, arg *model.Greeter) (int64, error)
 	DeleteByPrimaryKey(ctx context.Context, Hello string) (int64, error)
 }
 
@@ -45,7 +45,7 @@ func (dao *GreeterDao) UpdateByPrimaryKey(ctx context.Context, arg *model.Greete
 	return result.RowsAffected, result.Error
 }
 
-func (dao *GreeterDao) UpdateByPriIngoreNullCols(ctx context.Context, arg *model.Greeter) (int64, error) {
+func (dao *GreeterDao) UpdateByPriIgnoreNullCols(ctx context.Context, arg *model.Greeter) (int64, error) {
 	result := dao.DB(ctx).Model(arg).Updates(arg)
 	return result.RowsAffected, result.Error
 }

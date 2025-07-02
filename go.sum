@@ -70,6 +70,10 @@ github.com/frochyzhang/ag-core v1.0.7 h1:/SMIMmWVSUXAGVIil5ZaLZJRdzp32JDO09nXrjY
 github.com/frochyzhang/ag-core v1.0.7/go.mod h1:g26OmLcZ7qMmTXbJaoETW2zJZMsTjD/jFvV59uB466A=
 github.com/frochyzhang/ag-core v1.0.8 h1:EnPZZfh5i7XTQP5pSUeFxE9XzAB6E2MyKafrhr9+2jw=
 github.com/frochyzhang/ag-core v1.0.8/go.mod h1:g26OmLcZ7qMmTXbJaoETW2zJZMsTjD/jFvV59uB466A=
+github.com/frochyzhang/ag-core v1.1.0 h1:1ZuZiJL4kWWeUbSnf+o1vt0PLvYaWYUtWExoRq8/szg=
+github.com/frochyzhang/ag-core v1.1.0/go.mod h1:g26OmLcZ7qMmTXbJaoETW2zJZMsTjD/jFvV59uB466A=
+github.com/frochyzhang/ag-core v1.1.1 h1:3Q0RhHZYVpsg8soN2FkO+xKEW7R+zB5qwQrmvle0gQA=
+github.com/frochyzhang/ag-core v1.1.1/go.mod h1:g26OmLcZ7qMmTXbJaoETW2zJZMsTjD/jFvV59uB466A=
 github.com/fsnotify/fsnotify v1.5.4/go.mod h1:OVB6XrOHzAwXMpEM7uPOzcehqUV2UqJxmVXmkdnm1bU=
 github.com/fsnotify/fsnotify v1.6.0 h1:n+5WquG0fcWoWp6xPWfHdbskMCQaFnG6PfBrh1Ky4HY=
 github.com/fsnotify/fsnotify v1.6.0/go.mod h1:sl3t1tCWJFWoRz9R8WJCbQihKKwmorjAbSClcnxKAGw=

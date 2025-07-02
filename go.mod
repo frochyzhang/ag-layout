@@ -5,7 +5,7 @@ go 1.23.6
 require (
 	github.com/cloudwego/hertz v0.10.0
 	github.com/cloudwego/kitex v0.14.1
-	github.com/frochyzhang/ag-core v1.0.8
+	github.com/frochyzhang/ag-core v1.1.1
 	go.uber.org/automaxprocs v1.6.0
 	go.uber.org/fx v1.24.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20240528184218-531527333157
