@@ -13,10 +13,38 @@ import (
 	"testing"
 )
 
+func BenchmarkCreateHello(b *testing.B) {
+	sc := []constant.ServerConfig{
+		*constant.NewServerConfig("127.0.0.1", 8848),
+	}
+	cc := constant.ClientConfig{
+		NamespaceId:         "test",
+		TimeoutMs:           5000,
+		NotLoadCacheAtStart: true,
+		LogDir:              "/tmp/nacos/log",
+		CacheDir:            "/tmp/nacos/cache",
+		LogLevel:            "info",
+	}
+	nacosCli, _ := clients.NewNamingClient(
+		vo.NacosClientParam{
+			ClientConfig:  &cc,
+			ServerConfigs: sc,
+		})
+	opts := make([]hertzclient.ClientOption, 0)
+	opts = append(opts, hertzclient.WithNamingClient(nacosCli))
+	opts = append(opts, hertzclient.WithHostUrl("http://ag-demo.http"))
+
+	h := &HelloHTTPClientImpl{cc: hertzclient.NewClient(opts)}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		h.CreateHello(context.Background(), &Hello1Request{Name: strconv.Itoa(i)})
+	}
+}
 func TestHelloHTTPClientImpl_CreateHello(t *testing.T) {
 
 	sc := []constant.ServerConfig{
-		*constant.NewServerConfig("10.25.30.105", 31983),
+		*constant.NewServerConfig("127.0.0.1", 8848),
 	}
 	cc := constant.ClientConfig{
 		NamespaceId:         "test",
