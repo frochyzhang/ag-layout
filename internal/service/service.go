@@ -5,16 +5,14 @@
 package service
 
 import (
-	"context"
+	"github.com/frochyzhang/ag-core/ag/ag_db"
 	mw "github.com/frochyzhang/ag-core/ag/ag_ext"
 	"github.com/frochyzhang/ag-layout/api/helloworld"
 	"go.uber.org/fx"
-	"log"
 )
 
 var FxServiceModule = fx.Module("fx-service",
 	fx.Provide(
-		//NewTmMiddlewareContext,
 		NewGreeterService,
 		NewGreeterProxyWithParams,
 		NewHelloService,
@@ -22,7 +20,11 @@ var FxServiceModule = fx.Module("fx-service",
 	),
 	fx.Provide(
 		fx.Annotate(
-			func() mw.PrioritizedMiddleware { return GlobalTraceMiddleWare{} },
+			func() mw.PrioritizedMiddleware { return NewGlobalTraceMiddleware() },
+			fx.ResultTags(`group:"fx_global_service_middleware"`),
+		),
+		fx.Annotate(
+			func(tm ag_db.TransactionManager) mw.PrioritizedMiddleware { return NewTmMiddlewareContext(tm) },
 			fx.ResultTags(`group:"fx_global_service_middleware"`),
 		),
 		fx.Annotate(
@@ -57,19 +59,4 @@ type FxHelloMiddleware struct {
 
 func NewHelloProxyWithParams(in FxHelloMiddleware, service *HelloService) helloworld.HelloServer {
 	return NewHelloProxy(service, append(in.GlobalMws, in.CustomMws...))
-}
-
-type GlobalTraceMiddleWare struct{}
-
-func (g GlobalTraceMiddleWare) GetOrder() int {
-	return mw.MiddlewarePriorityHigh
-}
-
-func (g GlobalTraceMiddleWare) GetMiddleware() mw.Middleware {
-	return func(method string, ctx context.Context, req interface{}, next func(context.Context, interface{}) (interface{}, error)) (interface{}, error) {
-		log.Println("全局事务开启啦")
-		res, err := next(ctx, req)
-		log.Println("<UNK>")
-		return res, err
-	}
 }

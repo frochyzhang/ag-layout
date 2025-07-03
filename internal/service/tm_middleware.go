@@ -4,6 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"github.com/frochyzhang/ag-core/ag/ag_db"
+	"github.com/frochyzhang/ag-core/ag/ag_ext"
+	mw "github.com/frochyzhang/ag-core/ag/ag_ext"
 	"log"
 	"time"
 )
@@ -12,11 +14,19 @@ type TmMiddlewareContext struct {
 	tm ag_db.TransactionManager
 }
 
-func NewTmMiddlewareContext(tm ag_db.TransactionManager) *TmMiddlewareContext {
-	return &TmMiddlewareContext{tm: tm}
+func NewTmMiddlewareContext(tm ag_db.TransactionManager) TmMiddlewareContext {
+	return TmMiddlewareContext{tm: tm}
 }
 
-func (tmCtx *TmMiddlewareContext) TransactionMiddleware(
+func (tmCtx TmMiddlewareContext) GetOrder() int {
+	return mw.MiddlewarePriorityHigh
+}
+
+func (tmCtx TmMiddlewareContext) GetMiddleware() ag_ext.Middleware {
+	return tmCtx.TransactionMiddleware
+}
+
+func (tmCtx TmMiddlewareContext) TransactionMiddleware(
 	method string,
 	ctx context.Context,
 	req interface{},
@@ -40,4 +50,22 @@ func (tmCtx *TmMiddlewareContext) TransactionMiddleware(
 		log.Printf("[%s] 事务执行成功 %v", method, time.Since(start))
 	}
 	return
+}
+
+type GlobalTraceMiddleWare struct{}
+
+func (g GlobalTraceMiddleWare) GetOrder() int {
+	return mw.MiddlewarePriorityNormal
+}
+
+func NewGlobalTraceMiddleware() GlobalTraceMiddleWare {
+	return GlobalTraceMiddleWare{}
+}
+func (g GlobalTraceMiddleWare) GetMiddleware() mw.Middleware {
+	return func(method string, ctx context.Context, req interface{}, next func(context.Context, interface{}) (interface{}, error)) (interface{}, error) {
+		log.Println("全局事务开启啦")
+		res, err := next(ctx, req)
+		log.Println("<UNK>")
+		return res, err
+	}
 }
