@@ -12,9 +12,10 @@ package helloworld
 import (
 	context "context"
 	app "github.com/cloudwego/hertz/pkg/app"
-	server "github.com/cloudwego/hertz/pkg/app/server"
+	config "github.com/cloudwego/hertz/pkg/common/config"
 	consts "github.com/cloudwego/hertz/pkg/protocol/consts"
-	hertz "github.com/frochyzhang/ag-core/ag/ag_server/hertz"
+	client "github.com/frochyzhang/ag-core/ag/ag_hertz/client"
+	server "github.com/frochyzhang/ag-core/ag/ag_hertz/server"
 	fx "go.uber.org/fx"
 )
 
@@ -22,15 +23,16 @@ import (
 // is compatible with the kratos package it is being compiled against.
 var _ = new(context.Context)
 var _ = app.FS{}
-var _ = server.Hertz{}
+var _ = server.Server{}
 var _ = consts.StatusOK
-var _ = hertz.Server{}
+var _ = client.Client{}
 var _ = fx.Self()
+var _ = config.RequestOption{}
 
 const OperationHelloCreateHello = "/helloworld.Hello/CreateHello"
 
-func Register_Hello_CreateHello_HTTPServer(srv HelloServer) hertz.Option {
-	return hertz.WithRoute(&hertz.Route{
+func Register_Hello_CreateHello_HTTPServer(srv HelloServer) server.Option {
+	return server.WithRoute(&server.Route{
 		HttpMethod:   "POST",
 		RelativePath: "/hello/:Name",
 		Handlers:     append(make([]app.HandlerFunc, 0), _Hello_CreateHello0_HTTP_Handler(srv)),
@@ -59,6 +61,34 @@ func _Hello_CreateHello0_HTTP_Handler(srv HelloServer) func(ctx context.Context,
 		}
 		c.JSON(consts.StatusOK, reply)
 	}
+}
+
+type HelloHTTPClient interface {
+	CreateHello(ctx context.Context, req *Hello1Request, opts ...config.RequestOption) (rsp *Hello1Reply, err error)
+}
+
+type HelloHTTPClientImpl struct {
+	cc *client.Client
+}
+
+func NewHelloHTTPClient(client *client.Client) HelloHTTPClient {
+	return &HelloHTTPClientImpl{client}
+}
+
+func (c *HelloHTTPClientImpl) CreateHello(ctx context.Context, in *Hello1Request, opts ...config.RequestOption) (*Hello1Reply, error) {
+	var out Hello1Reply
+	path := "/hello/:Name"
+	pathVars := make(map[string]string)
+
+	pathVars["Name"] = in.GetName()
+	//	path := binding.EncodeURL(pattern, in, false)
+	//	opts = append(opts, http.Operation(OperationHelloCreateHello))
+	//	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, pathVars, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
 }
 
 var FxHelloHTTPModule = fx.Module("fx_Hello_HTTP",

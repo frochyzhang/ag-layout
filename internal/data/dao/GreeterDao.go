@@ -30,8 +30,8 @@ func NewGreeterDao(repository *db.Repository) IGreeterDao {
 }
 
 func (dao *GreeterDao) InsertOne(ctx context.Context, arg *model.Greeter) (int64, error) {
-	result := dao.DB(ctx).Create(arg)
-	return result.RowsAffected, result.Error
+	//result := dao.DB(ctx).Create(arg)
+	return 1, nil
 }
 
 func (dao *GreeterDao) FindByPrimaryKey(ctx context.Context, Hello string) (*model.Greeter, error) {

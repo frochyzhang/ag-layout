@@ -12,9 +12,10 @@ package helloworld
 import (
 	context "context"
 	app "github.com/cloudwego/hertz/pkg/app"
-	server "github.com/cloudwego/hertz/pkg/app/server"
+	config "github.com/cloudwego/hertz/pkg/common/config"
 	consts "github.com/cloudwego/hertz/pkg/protocol/consts"
-	hertz "github.com/frochyzhang/ag-core/ag/ag_server/hertz"
+	client "github.com/frochyzhang/ag-core/ag/ag_hertz/client"
+	server "github.com/frochyzhang/ag-core/ag/ag_hertz/server"
 	fx "go.uber.org/fx"
 )
 
@@ -22,23 +23,24 @@ import (
 // is compatible with the kratos package it is being compiled against.
 var _ = new(context.Context)
 var _ = app.FS{}
-var _ = server.Hertz{}
+var _ = server.Server{}
 var _ = consts.StatusOK
-var _ = hertz.Server{}
+var _ = client.Client{}
 var _ = fx.Self()
+var _ = config.RequestOption{}
 
 const OperationGreeterCreateGreeter = "/helloworld.Greeter/CreateGreeter"
 const OperationGreeterPutGreeter = "/helloworld.Greeter/PutGreeter"
 
-func Register_Greeter_CreateGreeter_HTTPServer(srv GreeterServer) hertz.Option {
-	return hertz.WithRoute(&hertz.Route{
+func Register_Greeter_CreateGreeter_HTTPServer(srv GreeterServer) server.Option {
+	return server.WithRoute(&server.Route{
 		HttpMethod:   "POST",
 		RelativePath: "/helloworld",
 		Handlers:     append(make([]app.HandlerFunc, 0), _Greeter_CreateGreeter0_HTTP_Handler(srv)),
 	})
 }
-func Register_Greeter_PutGreeter_HTTPServer(srv GreeterServer) hertz.Option {
-	return hertz.WithRoute(&hertz.Route{
+func Register_Greeter_PutGreeter_HTTPServer(srv GreeterServer) server.Option {
+	return server.WithRoute(&server.Route{
 		HttpMethod:   "PUT",
 		RelativePath: "/helloworld",
 		Handlers:     append(make([]app.HandlerFunc, 0), _Greeter_PutGreeter0_HTTP_Handler(srv)),
@@ -83,6 +85,47 @@ func _Greeter_PutGreeter0_HTTP_Handler(srv GreeterServer) func(ctx context.Conte
 		}
 		c.JSON(consts.StatusOK, reply)
 	}
+}
+
+type GreeterHTTPClient interface {
+	CreateGreeter(ctx context.Context, req *HelloRequest, opts ...config.RequestOption) (rsp *HelloReply, err error)
+	PutGreeter(ctx context.Context, req *HelloRequest, opts ...config.RequestOption) (rsp *HelloReply, err error)
+}
+
+type GreeterHTTPClientImpl struct {
+	cc *client.Client
+}
+
+func NewGreeterHTTPClient(client *client.Client) GreeterHTTPClient {
+	return &GreeterHTTPClientImpl{client}
+}
+
+func (c *GreeterHTTPClientImpl) CreateGreeter(ctx context.Context, in *HelloRequest, opts ...config.RequestOption) (*HelloReply, error) {
+	var out HelloReply
+	path := "/helloworld"
+	pathVars := make(map[string]string)
+	//	path := binding.EncodeURL(pattern, in, false)
+	//	opts = append(opts, http.Operation(OperationGreeterCreateGreeter))
+	//	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, pathVars, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *GreeterHTTPClientImpl) PutGreeter(ctx context.Context, in *HelloRequest, opts ...config.RequestOption) (*HelloReply, error) {
+	var out HelloReply
+	path := "/helloworld"
+	pathVars := make(map[string]string)
+	//	path := binding.EncodeURL(pattern, in, false)
+	//	opts = append(opts, http.Operation(OperationGreeterPutGreeter))
+	//	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, pathVars, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
 }
 
 var FxGreeterHTTPModule = fx.Module("fx_Greeter_HTTP",
