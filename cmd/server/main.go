@@ -62,15 +62,15 @@ var mainFx = fx.Module("main",
 	/** conf **/
 	// 初始化配置
 	fxs.FxAgConfModule,
-	// localconf
-	fxs.FxConfLocMode,
 	// nacosconf
 	fxs.FxConfNacoMode,
+	fxs.FxNacosNamingMode,
+	fxs.FxEnableNacosRemoteConfigMode,
 	// nettyClient
 	fxs.FxNettyClientBaseModule,
 
 	/** DB **/
-	fxs.FxAicGromdbModule,
+	//fxs.FxAicGromdbModule,
 
 	// 根APP
 	fxs.FxAppMode,

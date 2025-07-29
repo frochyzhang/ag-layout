@@ -23,9 +23,9 @@ type GreeterDao struct {
 }
 
 // NewGreeterDao get dao instance
-func NewGreeterDao(repository *db.Repository) IGreeterDao {
+func NewGreeterDao() IGreeterDao {
 	return &GreeterDao{
-		Repository: repository,
+		Repository: nil,
 	}
 }
 

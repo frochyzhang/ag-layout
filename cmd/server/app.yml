@@ -1,73 +1,16 @@
 env: local
-http:
-  #  host: 0.0.0.0
-  host: 127.0.0.1
-  # port: 3306
-  port: 8000
-kitex:
-  server:
-    Host: 10.8.0.5
-    Port: 9888
-    ServiceName: "ag-demo.grpc"
-    Grpc:
-      Enable: true
-data:
-  db:
-    user:
-#     driver: ibmdb
-#     dsn: HOSTNAME=192.168.105.63;DATABASE=testdb;PORT=50001;UID=db2inst1;PWD=db2inst1;AUTHENTICATION=SERVER;CurrentSchema=ENTTEST
-#      driver: sqlite
-#      dsn: storage/nunu-test.db?_busy_timeout=5000
-        driver: mysql
-        dsn: root:root@tcp(10.25.30.105:31053)/greeter?charset=utf8mb4&parseTime=True&loc=Local
-        use-tx: true
-  #    user:
-  #      driver: postgres
-  #      dsn: host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai
 nacos:
   config:
-    enableconfig: true
-    enablenaming: true
-    serveraddr: 10.25.30.105:31983
+    enable: true
+    serveraddr: 127.0.0.1:8848
     namespace: test
     username: nacos
     password: nacos
     dataids:
-      - dataid: "wksd.yaml"
-        group: "DEFAULT_GROUP"
+      - dataid: wksd.yaml
         type: yaml
-#      - dataid: "aic_2.yaml"
-#        group: "DEFAULT_GROUP"
-#        type: yaml
-
-# nacos:
-#   enable: true
-#   config:
-# #     user:
-# #       #address: 192.168.33.10
-#       address: 192.168.105.63:8813
-#       port: 8813
-#       namespace: aic-dev
-#       dataidlist:
-#         - dataid: "aic_1.yaml"
-#           group: "DEFAULT_GROUP"
-#           type: yaml
-#         - dataid: "aic_2.yaml"
-#           group: "DEFAULT_GROUP"
-#           type: yaml
-# #      group: aic
-#       username: nacos
-#       password: nacos
-#       log:
-#         timeout_ms: 5000
-#         not_load_cache_at_start: true
-#         log_dir: ./storage/nacos/log
-#         cache_dir: ./storage/nacos/cache
-#         log_level: "info"
-
-
-app:
-  profile: prod
+        group: DEFAULT_GROUP
+        autorefresh: true
 
 log:
   log_level: debug

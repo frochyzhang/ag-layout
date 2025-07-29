@@ -6,6 +6,7 @@ require (
 	github.com/cloudwego/hertz v0.10.0
 	github.com/cloudwego/kitex v0.14.1
 	github.com/frochyzhang/ag-core v1.1.1
+	github.com/nacos-group/nacos-sdk-go v1.1.5
 	go.uber.org/automaxprocs v1.6.0
 	go.uber.org/fx v1.24.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20240528184218-531527333157
@@ -59,7 +60,6 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/nacos-group/nacos-sdk-go v1.1.5 // indirect
 	github.com/nyaruka/phonenumbers v1.0.55 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
