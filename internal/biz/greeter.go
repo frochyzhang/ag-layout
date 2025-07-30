@@ -2,7 +2,6 @@ package biz
 
 import (
 	"context"
-	"fmt"
 	"github.com/frochyzhang/ag-layout/internal/data/dao"
 	"github.com/frochyzhang/ag-layout/internal/data/model"
 	"log/slog"
@@ -37,11 +36,11 @@ func (uc *GreeterUsecase) CreateGreeter(ctx context.Context, g *Greeter) (*Greet
 	atoi, _ := strconv.Atoi(g.Hello)
 	i := atoi % 2
 	switch i {
-	case 1:
-		g.Hello = fmt.Sprintf("Hello %v", g.Hello)
-		return g, nil
-	case 0:
-		return nil, fmt.Errorf("create greeter failed")
+	//case 1:
+	//	g.Hello = fmt.Sprintf("Hello %v", g.Hello)
+	//	return g, nil
+	//case 0:
+	//	return nil, fmt.Errorf("create greeter failed")
 	default:
 		return g, nil
 	}

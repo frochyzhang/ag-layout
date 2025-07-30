@@ -49,10 +49,33 @@ api:
 	       --openapi_out=fq_schema_naming=true,default_response=false:. \
 	       $(API_PROTO_FILES)
 
-.PHONY: build
-# build
+.PHONY: build build-macos build-linux build-windows
+# Default build (current platform)
 build:
 	mkdir -p bin/ && go build -ldflags "-X main.Version=$(VERSION)" -o ./bin/ ./...
+
+# Build for MacOS (darwin/arm64)
+build-macos:
+	GOOS=darwin GOARCH=arm64 go build -ldflags "-X main.Version=$(VERSION)" -o ./bin/darwin-arm64/ ./...
+
+# Build for Linux (linux/amd64)
+build-linux:
+	GOOS=linux GOARCH=amd64 go build -ldflags "-X main.Version=$(VERSION)" -o ./bin/linux-amd64/ ./...
+
+# Build for Windows (windows/amd64)
+build-windows:
+	GOOS=windows GOARCH=amd64 go build -ldflags "-X main.Version=$(VERSION)" -o ./bin/windows-amd64/ ./...
+
+# Build all platforms
+build-all: build-macos build-linux build-windows
+
+.PHONY: build-docker build-docker-linux
+# build docker image for current platform
+build-docker:
+	docker build -t ag-layout:$(VERSION) -f ./Dockerfile .
+# build docker image for linux platform
+build-docker-linux:
+	docker build -t ag-layout:$(VERSION) -f ./Dockerfile.linux .
 
 .PHONY: generate
 # generate

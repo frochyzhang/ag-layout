@@ -32,7 +32,7 @@ func BenchmarkCreateHello(b *testing.B) {
 		})
 	opts := make([]hertzclient.ClientOption, 0)
 	opts = append(opts, hertzclient.WithNamingClient(nacosCli))
-	opts = append(opts, hertzclient.WithHostUrl("http://ag-demo.http"))
+	opts = append(opts, hertzclient.WithHostUrl("http://demo"))
 
 	h := &HelloHTTPClientImpl{cc: hertzclient.NewClient(opts)}
 

@@ -3,7 +3,7 @@ FROM golang:latest AS builder
 COPY . /src
 WORKDIR /src
 
-RUN GOPROXY=https://goproxy.cn make build
+RUN GOPROXY=https://goproxy.cn make build-linux
 
 FROM debian:latest
 
