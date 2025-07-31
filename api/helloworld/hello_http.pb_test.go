@@ -61,7 +61,7 @@ func TestHelloHTTPClientImpl_CreateHello(t *testing.T) {
 		})
 	opts := make([]hertzclient.ClientOption, 0)
 	opts = append(opts, hertzclient.WithNamingClient(nacosCli))
-	opts = append(opts, hertzclient.WithHostUrl("http://ag-demo.http"))
+	opts = append(opts, hertzclient.WithHostUrl("http://demo"))
 	if err != nil {
 		panic(err)
 	}

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"embed"
 	"flag"
 	"fmt"
 	"github.com/frochyzhang/ag-core/ag/ag_app"
@@ -33,9 +32,6 @@ func init() {
 	flag.StringVar(&flagconf, "conf", "../../configs", "config path, eg: -conf config.yaml")
 }
 
-//go:embed app*
-var localConfigFile embed.FS
-
 func main() {
 	threadProfile := pprof.Lookup("threadcreate")
 	fmt.Printf(" beforeClient threads counts: %d\n", threadProfile.Count())
@@ -43,7 +39,6 @@ func main() {
 
 	fxopts = append(
 		fxopts,
-		fx.Supply(localConfigFile),
 		mainFx,
 		fx.Invoke(func(s *ag_app.App) {}),
 	)
@@ -63,7 +58,7 @@ var mainFx = fx.Module("main",
 	// 初始化配置
 	fxs.FxAgConfModule,
 	// nacosconf
-	fxs.FxConfNacoMode,
+	fxs.FxNacosConfigMode,
 	fxs.FxNacosNamingMode,
 	fxs.FxEnableNacosRemoteConfigMode,
 	// nettyClient

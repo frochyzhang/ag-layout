@@ -3,6 +3,7 @@ package helloworld
 import (
 	"context"
 	"github.com/cloudwego/kitex/client"
+	"github.com/cloudwego/kitex/transport"
 	client2 "github.com/frochyzhang/ag-core/ag/ag_kitex/client"
 	"github.com/frochyzhang/ag-core/fxs"
 	"github.com/nacos-group/nacos-sdk-go/clients"
@@ -14,50 +15,11 @@ import (
 )
 
 func Benchmark_kHelloClient_CreateHello(b *testing.B) {
-	sc := []constant.ServerConfig{
-		*constant.NewServerConfig("127.0.0.1", 8848),
-	}
-
-	cc := constant.ClientConfig{
-		NamespaceId:         "test",
-		TimeoutMs:           5000,
-		NotLoadCacheAtStart: true,
-		CacheDir:            "/tmp/nacos/cache",
-		LogDir:              "/tmp/nacos/log",
-		LogLevel:            "debug",
-	}
-
-	nacosCli, _ := clients.NewNamingClient(vo.NacosClientParam{
-		ClientConfig:  &cc,
-		ServerConfigs: sc,
-	})
-
-	properties := &client2.KitexClientProperties{
-		RpcTimeout:    30 * time.Second,
-		TransportType: "grpc",
-		Resolver: client2.ResolverProperties{
-			Enable: true,
-			Type:   "nacos",
-		},
-	}
-	params := client2.FxInKitexResolverParams{
-		NamingClient: nacosCli,
-	}
-	resolver, err := client2.BuildKitexResolver(params, properties)
-	if err != nil {
-		b.Error(err)
-	}
-	suite, err := fxs.FxBuilderKitexClientSuite(fxs.FxInKitexClientParams{
-		KCProps:  properties,
-		Resolver: resolver,
-	})
-	if err != nil {
-		b.Error(err)
-	}
 	cli, err := client.NewClient(
 		NewHelloServiceInfoForStreamClient(),
-		client.WithSuite(suite),
-		client.WithDestService("demo"),
+		client.WithDestService("ag-gateway"),
+		client.WithHostPorts("10.8.8.18:8080"),
+		client.WithTransportProtocol(transport.GRPC),
 	)
 	if err != nil {
 		b.Error(err)

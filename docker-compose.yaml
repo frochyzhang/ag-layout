@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  ag-layout:
+    image: ag-layout:v1.1.0-12-g42e0bc8
+    container_name: ag-layout
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./bin
+          target: /app/bin
+        - action: sync+restart
+          path: ./cmd/server/app-docker.yml
+          target: /app/conf/app.yml
+    ports:
+      - '19888:19888'
+      - '9888:9888'
+    volumes:
+      - './cmd/server/app-docker.yml:/app/conf/app.yml'
+      - './bin/data/cache:/app/cache'
+      - './bin/data/log:/app/log'
+      - './bin/data/storage:/app/storage'

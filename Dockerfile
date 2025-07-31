@@ -1,24 +1,19 @@
-FROM golang:latest AS builder
-
-COPY . /src
-WORKDIR /src
-
-RUN GOPROXY=https://goproxy.cn make build
-
+#FROM golang:latest AS builder
+#
+#COPY . /src
+#WORKDIR /src
+#
+#RUN GOPROXY=https://goproxy.cn make build
+#
 FROM debian:latest
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		ca-certificates  \
-        netbase \
-        && rm -rf /var/lib/apt/lists/ \
-        && apt-get autoremove -y && apt-get autoclean -y
-
-COPY --from=builder /src/bin /app
+COPY ./bin/linux-amd64 /app/bin
+COPY ./cmd/server/app.yml /app/conf/app.yml
 
 WORKDIR /app
 
-EXPOSE 8000
-EXPOSE 9000
-VOLUME /data/conf
+EXPOSE 9888
+EXPOSE 19888
+VOLUME /app/conf
 
-CMD ["./server", "-conf", "/data/conf"]
+CMD ["/app/bin/server", "-Dapp.conf=/app/conf/app.yml"]

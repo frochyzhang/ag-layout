@@ -72,9 +72,11 @@ build-all: build-macos build-linux build-windows
 .PHONY: build-docker build-docker-linux
 # build docker image for current platform
 build-docker:
+	export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 	docker build -t ag-layout:$(VERSION) -f ./Dockerfile .
 # build docker image for linux platform
 build-docker-linux:
+	export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 	docker build -t ag-layout:$(VERSION) -f ./Dockerfile.linux .
 
 .PHONY: generate
