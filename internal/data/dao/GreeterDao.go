@@ -23,15 +23,15 @@ type GreeterDao struct {
 }
 
 // NewGreeterDao get dao instance
-func NewGreeterDao() IGreeterDao {
+func NewGreeterDao(repository *db.Repository) IGreeterDao {
 	return &GreeterDao{
-		Repository: nil,
+		Repository: repository,
 	}
 }
 
 func (dao *GreeterDao) InsertOne(ctx context.Context, arg *model.Greeter) (int64, error) {
-	//result := dao.DB(ctx).Create(arg)
-	return 1, nil
+	result := dao.DB(ctx).Create(arg)
+	return result.RowsAffected, result.Error
 }
 
 func (dao *GreeterDao) FindByPrimaryKey(ctx context.Context, Hello string) (*model.Greeter, error) {

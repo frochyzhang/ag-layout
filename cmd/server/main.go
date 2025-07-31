@@ -65,7 +65,7 @@ var mainFx = fx.Module("main",
 	fxs.FxNettyClientBaseModule,
 
 	/** DB **/
-	//fxs.FxAicGromdbModule,
+	fxs.FxAicGromdbModule,
 
 	// 根APP
 	fxs.FxAppMode,
